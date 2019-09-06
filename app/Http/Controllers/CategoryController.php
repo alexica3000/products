@@ -27,9 +27,13 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-		$prim_category = $request->prim_category;
+		if(isset($request->cat)){
+			$cat = Category::findOrFail($request->cat);
+		} else {
+			$cat = null;
+		}
 		
-		return view('category.create', compact('prim_category'));
+		return view('category.create', compact('cat'));
     }
 
     /**
@@ -42,9 +46,9 @@ class CategoryController extends Controller
     {
 		$category = new Category;
 		$category->title = $request->category;
-		$category->parent = $request->prim_category;
+		$category->parent = $request->cat;
 		$category->save();
-
+		
 		return redirect()->route('home')->with('message', 'Category has been added.');
     }
 
@@ -67,9 +71,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+		return view('category.edit', compact('category'));
     }
 
     /**
@@ -79,9 +83,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->update([
+			'title' => $request->category
+		]);
+
+		return redirect()->route('category.show', $category->id)->with('message', 'Category has been updated');
     }
 
     /**

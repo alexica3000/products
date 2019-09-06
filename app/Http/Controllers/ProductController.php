@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AddProductRequest;
+use App\Product;
+use App\Category;
 
-class SubCategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +16,9 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        //
+		$products = Product::all();
+		
+		return view('product.index', compact('products'));
     }
 
     /**
@@ -23,7 +28,9 @@ class SubCategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create', compact('category'));
+		$categories = Category::all();
+		
+		return view('product.create', compact('categories'));
     }
 
     /**
@@ -32,9 +39,15 @@ class SubCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddProductRequest $request)
     {
-        //
+		$product = new Product;
+		$product->title = $request->product;
+		$product->description = $request->description;
+		$product->price = $request->price;
+		$product->save();
+		
+		return redirect()->route('product.index')->with('message', 'Product has been saved');
     }
 
     /**
@@ -43,9 +56,9 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return view('product.show', compact('product'));
     }
 
     /**

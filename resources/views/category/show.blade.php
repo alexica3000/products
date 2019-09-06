@@ -6,7 +6,7 @@
 		<div class="card-header">
 			<div class="row">
 				<div class="col">
-					<h3>Category - {{ $category->title }}</h3>
+					<h3>Category - <b>{{ $category->title }}</b></h3>
 				</div>
 
 				@if (Auth::check())
@@ -14,6 +14,7 @@
 						<form action="{{ route('category.destroy', $category->id) }}" method="post">
 							@method('delete')
 							@csrf
+							<a class="btn btn-info" href="{{ route('category.edit', $category->id) }}">Modify</a>
 							<button class="btn btn-danger" type="submit">Delete</button>
 						</form>
 					</div>
@@ -22,11 +23,10 @@
 		</div>
 
 		<div class="card-body">
-			<div class="text-right">
+			<div class="text-right pb-3">
 				<form action="{{ route('category.create', $category->id) }}" method="get">
-					@csrf
 					<button class="btn btn-primary">Add subcategory</button>
-					{{-- <input type="hidden" name="prim_category" value="{{ $category->id }}"> --}}
+					<input type="hidden" name="cat" value="{{ $category->id }}">
 				</form>
 			</div>
 
