@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
-use App\Http\Requests\AddCategoryRequest;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-		$categories = Category::where('parent', null)->get();
-		
-		return view('home', compact('categories'));
+        //
     }
 
     /**
@@ -25,11 +21,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-		$prim_category = $request->prim_category;
-		
-		return view('category.create', compact('prim_category'));
+        return view('category.create', compact('category'));
     }
 
     /**
@@ -38,14 +32,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddCategoryRequest $request)
+    public function store(Request $request)
     {
-		$category = new Category;
-		$category->title = $request->category;
-		$category->parent = $request->prim_category;
-		$category->save();
-
-		return redirect()->route('home')->with('message', 'Category has been added.');
+        //
     }
 
     /**
@@ -54,11 +43,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-		$subcategories = Category::where('parent', $category->id)->get();
-		
-		return view('category.show', compact('category', 'subcategories'));
+        //
     }
 
     /**
@@ -90,10 +77,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-		if($category->delete()){
-			return redirect()->route('category.index')->with('message', 'Category has been deleted.');
-		}
-	}
+        //
+    }
 }

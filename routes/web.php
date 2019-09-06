@@ -16,5 +16,8 @@ Route::get('/', 'CategoryController@index');
 Auth::routes();
 
 Route::resource('/category', 'CategoryController');
+// Route::resource('/{category}/subcat', 'SubCategoryController');
+
+Route::resource('/subcat', 'CategoryController');
 
 Route::get('/home', 'CategoryController@index')->name('home');
