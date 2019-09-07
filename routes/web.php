@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'CategoryController@index');
+Route::get('/', 'ProductController@index');
 
 Auth::routes();
 

@@ -36,10 +36,14 @@
 						@foreach ($products as $product)
 							<tr scope="row">
 								<th>{{ $loop->iteration }}</th>
-								<td>{{ $product->title }}</td>
+								<td><a href="{{ route('product.show', $product->id) }}">{{ $product->title }}</a></td>
 								<td>{{ $product->description }}</td>
 								<td>{{ $product->price }}</td>
-								<td>{{ $product->categories }}</td>
+								<td>
+									@foreach ($product->categories as $category)
+										<div>{{ $category->title }}</div>
+									@endforeach
+								</td>
 								@if(Auth::check())
 									<td><a href="{{ route('product.show', $product->id) }}">View details</a></td>
 								@endif
