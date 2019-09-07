@@ -105,5 +105,17 @@ class ProductController extends Controller
 		$product->delete();
 		
 		return redirect()->route('product.index')->with('message', 'Product has been deleted.');
+	}
+	
+	/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function productCat($id)
+    {
+		$products = Category::findOrFail($id)->products()->get();
+
+		return view('product.index', compact('products'));
     }
 }

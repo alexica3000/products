@@ -17,7 +17,7 @@ class CategoryController extends Controller
     {
 		$categories = Category::where('parent', null)->get();
 		
-		return view('home', compact('categories'));
+		return view('category.index', compact('categories'));
     }
 
     /**

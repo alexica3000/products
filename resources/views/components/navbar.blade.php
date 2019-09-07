@@ -9,7 +9,7 @@
 
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="{{ route('home') }}">Categories</a>
+					<a class="nav-link" href="{{ route('category.index') }}">Categories</a>
 				</li>
 			</ul>
 

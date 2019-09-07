@@ -41,7 +41,7 @@
 								<td>{{ $product->price }}</td>
 								<td>
 									@foreach ($product->categories as $category)
-										<div>{{ $category->title }}</div>
+										<div><a href="{{ route('cat.product', $category->id) }}">{{ $category->title }}</a></div>
 									@endforeach
 								</td>
 								@if(Auth::check())

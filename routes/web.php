@@ -17,9 +17,6 @@ Auth::routes();
 
 Route::resource('/category', 'CategoryController');
 Route::resource('/product', 'ProductController');
+Route::get('/cat/{category}/', 'ProductController@productCat')->name('cat.product');
 
-// Route::resource('/{category}/subcat', 'SubCategoryController');
-
-// Route::resource('/subcat', 'CategoryController');
-
-Route::get('/home', 'CategoryController@index')->name('home');
+Route::get('/home', 'ProductController@index')->name('home');
