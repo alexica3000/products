@@ -23,35 +23,37 @@
 		</div>
 
 		<div class="card-body">
-			<div class="text-right pb-3">
-				<form action="{{ route('category.create', $category->id) }}" method="get">
-					<button class="btn btn-primary">Add subcategory</button>
-					<input type="hidden" name="cat" value="{{ $category->id }}">
-				</form>
-			</div>
+			@if (Auth::check())
+				<div class="text-right pb-3">
+					<form action="{{ route('category.create', $category->id) }}" method="get">
+						<button class="btn btn-primary">Add subcategory</button>
+						<input type="hidden" name="cat" value="{{ $category->id }}">
+					</form>
+				</div>
+			@endif
 
 			@if(isset($subcategories) and count($subcategories) > 0)
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col" style="width:70%">Subcategory</th>
-						@if(Auth::check())
-							<th scope="col">Actions</th>
-						@endif
-					</tr>
-				</thead>
-				<tbody>
-					@foreach ($subcategories as $subcategory)
-						<tr scope="row">
-							<th>{{ $loop->iteration }}</th>
-							<td>{{ $subcategory->title }}</td>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col" style="width:70%">Subcategory</th>
 							@if(Auth::check())
-								<td><a href="{{ route('category.show', $subcategory->id) }}">View details</a></td>
+								<th scope="col">Actions</th>
 							@endif
 						</tr>
-					@endforeach
-				</tbody>
+					</thead>
+					<tbody>
+						@foreach ($subcategories as $subcategory)
+							<tr scope="row">
+								<th>{{ $loop->iteration }}</th>
+								<td><a href="{{ route('category.show', $subcategory->id) }}">{{ $subcategory->title }}</a></td>
+								@if(Auth::check())
+									<td><a href="{{ route('category.show', $subcategory->id) }}">View details</a></td>
+								@endif
+							</tr>
+						@endforeach
+					</tbody>
 				</table>
 			@else
 				<div>There are no subcategories.</div>

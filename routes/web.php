@@ -19,4 +19,7 @@ Route::resource('/category', 'CategoryController');
 Route::resource('/product', 'ProductController');
 Route::get('/cat/{category}/', 'ProductController@productCat')->name('cat.product');
 
+Route::get('/export/cat', 'CategoryController@exportCategories');
+Route::get('/export/prod', 'ProductController@exportProducts');
+
 Route::get('/home', 'ProductController@index')->name('home');

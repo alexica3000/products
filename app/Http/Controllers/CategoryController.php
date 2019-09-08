@@ -8,7 +8,17 @@ use App\Http\Requests\AddCategoryRequest;
 
 class CategoryController extends Controller
 {
-    /**
+	 /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show', 'exportCategories');
+    }
+	
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -103,5 +113,12 @@ class CategoryController extends Controller
 		if($category->delete()){
 			return redirect()->route('category.index')->with('message', 'Category has been deleted.');
 		}
+	}
+
+	public function exportCategories()
+	{
+		$categories = Category::all();
+
+		return response()->json(['status' => true, 'categories' => $categories]);
 	}
 }

@@ -33,7 +33,11 @@
 						@foreach ($categories as $category)
 							<tr scope="row">
 								<th>{{ $loop->iteration }}</th>
-								<td><a href="{{ route('cat.product', $category->id) }}">{{ $category->title }}</a></td>
+								<td><ul>
+									@if($category->parent == 0 )
+										@include('components.allcat', $category)
+									@endif
+								</ul></td>
 								@if(Auth::check())
 									<td><a href="{{ route('category.show', $category->id) }}">View details</a></td>
 								@endif

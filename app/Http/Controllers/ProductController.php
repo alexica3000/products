@@ -9,7 +9,17 @@ use App\Category;
 
 class ProductController extends Controller
 {
-    /**
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show', 'productCat', 'exportProducts');
+	}
+	
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -117,5 +127,12 @@ class ProductController extends Controller
 		$products = Category::findOrFail($id)->products()->get();
 
 		return view('product.index', compact('products'));
-    }
+	}
+	
+	public function exportProducts()
+	{
+		$products = Product::all();
+
+		return response()->json(['status' => true, 'products' => $products]);
+	}
 }
