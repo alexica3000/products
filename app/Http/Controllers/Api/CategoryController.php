@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\AddCategoryRequest;
+use App\Http\Resources\CategoryResource;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
-        // test
-        // test
+        return CategoryResource::collection(Category::getCategoriesList());
     }
 
     /**
@@ -24,9 +27,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddCategoryRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
