@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'p_id'];
 
-    public static function getCategoriesList(int $parentId = null) : Collection
+    public static function getCategoriesList(int $pId = null) : Collection
     {
-        return self::where('parent', $parentId)->get();
+        return self::where('p_id', $pId)->get();
     }
 
     public function children()

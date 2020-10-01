@@ -24,8 +24,8 @@ class AddCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'     => 'required|min:3|max:200',
-            'parent_id' => 'nullable|integer'
+            'title' => 'required|min:3|max:200|unique:categories,title',
+            'p_id'  => 'nullable|integer|exists:categories,id'
         ];
     }
 }

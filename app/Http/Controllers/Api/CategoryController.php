@@ -24,12 +24,12 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AddCategoryRequest $request
+     * @return CategoryResource
      */
     public function store(AddCategoryRequest $request)
     {
-        dd($request->all());
+        return new CategoryResource(Category::create($request->validated()));
     }
 
     /**
@@ -46,7 +46,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
