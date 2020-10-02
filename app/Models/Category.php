@@ -14,13 +14,13 @@ class Category extends Model
         return self::where('p_id', $pId)->get();
     }
 
-    public function children()
-    {
-        return $this->hasMany('App\Category', 'parent', 'id');
-    }
-
-    public function products()
-    {
-        return $this->belongsToMany('App\Product');
-    }
+//    public function children()
+//    {
+//        return $this->hasMany('App\Category', 'parent', 'id');
+//    }
+//
+//    public function products()
+//    {
+//        return $this->belongsToMany('App\Product');
+//    }
 }

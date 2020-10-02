@@ -6,6 +6,8 @@ use App\Http\Requests\AddCategoryRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -61,11 +63,14 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        return $category->delete()
+            ? response()->json(['id' => $category->id], 200)
+            : response()->json(['message' => 'Something wrong.'], 422);
     }
 }
