@@ -17,4 +17,6 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::apiResource('category', 'Api\CategoryController');
+Route::resources([
+    'category' => 'Api\CategoryController'
+]);
