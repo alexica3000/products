@@ -24,10 +24,9 @@ class AddProductRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'product' => 'required|min:3|max:150',
-			'description' => 'required|min:3|max:150',
-			'price' => 'required|numeric',
-			'category' => 'required'
+            'title'       => 'required|min:3|max:100',
+            'description' => 'required|min:3|max:150',
+            'price'       => 'required|numeric'
 		];
 	}
 }
