@@ -15,8 +15,6 @@
 //
 //Auth::routes();
 //
-////Route::resource('/category', 'CategoryController');
-//Route::resource('/product', 'ProductController');
 //Route::get('/cat/{category}/', 'ProductController@productCat')->name('cat.product');
 //
 //Route::get('/export/prod', 'ProductController@exportProducts');
