@@ -23,4 +23,10 @@ class Category extends Model
 //    {
 //        return $this->belongsToMany('App\Product');
 //    }
+
+// public function parents()
+// {
+//     return $this->belongsTo('App\Category', 'parent', 'id');
+// }
+
 }
