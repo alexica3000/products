@@ -11,8 +11,8 @@
 |
 */
 
-//Route::get('/', 'ProductController@index');
-//
+Route::get('/', 'HomeController@index');
+
 //Auth::routes();
 //
 //Route::get('/cat/{category}/', 'ProductController@productCat')->name('cat.product');
