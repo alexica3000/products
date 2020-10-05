@@ -8,7 +8,7 @@
 {{--    <link rel="icon" href="<%= BASE_URL %>favicon.ico">--}}
     <title>Products App</title>
     <script src="{{ asset('js/app.js') }}" defer></script>
-{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 <noscript>

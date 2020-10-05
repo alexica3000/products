@@ -1,6 +1,6 @@
 <template>
     <div>
-        app.vue
+        <example-component></example-component>
     </div>
 </template>
 
