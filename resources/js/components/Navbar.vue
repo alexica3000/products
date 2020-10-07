@@ -4,12 +4,12 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <router-link class="nav-link" :to="{ name: 'Index' }">Home</router-link>
+                    <router-link class="nav-link" :to="{ name: 'Home' }">Home</router-link>
                 </li>
             </ul>
 
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item ">
                     <router-link class="nav-link" :to="{ name: 'CategoryList' }">Categories</router-link>
                 </li>
             </ul>
@@ -70,3 +70,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .router-link-active {
+        background:lightgray;
+    }
+</style>

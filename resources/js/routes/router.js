@@ -15,6 +15,11 @@ const routes = [
         component: ExampleComponent
     },
     {
+        name: 'Home',
+        path: '/home',
+        component: ExampleComponent
+    },
+    {
         name: 'ProductList',
         path: '/products',
         component: ProductList
