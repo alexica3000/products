@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Axios from "axios";
 
 import ExampleComponent from "../components/ExampleComponent";
 import ProductList from "../pages/product/ProductList"
