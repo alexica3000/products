@@ -7,6 +7,9 @@
                     <div class="col">
                         <h1>Categories</h1>
                     </div>
+                    <div class="col text-right">
+                        <a class="btn btn-primary" href="#">New category</a>
+                    </div>
                 </div>
             </div>
 
