@@ -1,6 +1,39 @@
 <template>
     <div>
-        CategoryList
+        <div class="card">
+
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h1>Categories</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col" style="width:70%">Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr scope="row" v-for="(category, index) in categories">
+                            <th>{{ index + 1 }}</th>
+                            <td><ul>
+                                {{ category.title }}
+<!--                                @if($category->parent == 0 )-->
+<!--                                @include('components.allcat', $category)-->
+<!--                                @endif-->
+                            </ul></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
 </template>
 
