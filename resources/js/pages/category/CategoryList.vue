@@ -8,7 +8,8 @@
                         <h1>Categories</h1>
                     </div>
                     <div class="col text-right">
-                        <a class="btn btn-primary" href="#">New category</a>
+                        <router-link class="btn btn-primary" :to="{name: 'CategoryAdd'}">New category</router-link>
+<!--                        <a class="btn btn-primary" href="#">New category</a>-->
                     </div>
                 </div>
             </div>
