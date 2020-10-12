@@ -4,13 +4,27 @@
             <div class="col-md-8">
                 <h3>New Category</h3>
 
-                <form method="post" action="#">
+                <form @submit="addCategory">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="category" name="category" placeholder="Enter category">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="category"
+                            name="category"
+                            placeholder="Enter category"
+                            v-model="categoryName"
+                        >
+                        <small class="invalid-feedback" :class="{hide: isErr}">{{ errorMessage }}</small>
                         <small id="emailHelp" class="form-text text-muted">Short name of the category</small>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add</button>
-                    <a class="btn btn-dark">Cancel</a>
+
+                    <button
+                        class="btn btn-primary"
+                        @click="addCategory"
+                        :disabled="!disabled"
+                    >Add</button>
+
+                    <a class="btn btn-dark" @click="cancel">Cancel</a>
                 </form>
             </div>
         </div>
@@ -18,14 +32,40 @@
 </template>
 
 <script>
+    import CategoryList from "./CategoryList";
+    import CategoryDataService from "../../routes/services/CategoryDataService";
+
     export default {
         data() {
             return {
-
+                categoryName: '',
+                errorMessage: '',
+                isErr: false
             }
         },
         methods: {
+            addCategory(e) {
+                e.preventDefault();
 
+                CategoryDataService.create({titlee: this.categoryName})
+                    .then(r => {
+                        this.$router.push({name: 'CategoryList'});
+                    }).catch(e => {
+                        this.isError = true;
+                        if(e.response.data.message && e.response.data.errors) {
+                            const keys = Object.keys(e.response.data.errors);
+                            this.errorMessage = e.response.data.errors[keys[0]][0];
+                        }
+                    });
+            },
+            cancel() {
+                this.$router.push({name: 'CategoryList'})
+            }
+        },
+        computed: {
+            disabled: function() {
+                return this.categoryName.length > 4;
+            }
         }
     }
 </script>
