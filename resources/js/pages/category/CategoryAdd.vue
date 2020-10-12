@@ -14,7 +14,7 @@
                             placeholder="Enter category"
                             v-model="categoryName"
                         >
-                        <small class="invalid-feedback" :class="{hide: isErr}">{{ errorMessage }}</small>
+                        <small class="invalid-feedback d-block" >{{ titleErrMessage }}</small>
                         <small id="emailHelp" class="form-text text-muted">Short name of the category</small>
                     </div>
 
@@ -39,7 +39,7 @@
         data() {
             return {
                 categoryName: '',
-                errorMessage: '',
+                titleErrMessage: '',
                 isErr: false
             }
         },
@@ -47,14 +47,15 @@
             addCategory(e) {
                 e.preventDefault();
 
-                CategoryDataService.create({titlee: this.categoryName})
+                CategoryDataService.create({title: this.categoryName})
                     .then(r => {
+                        this.isErr = false;
                         this.$router.push({name: 'CategoryList'});
                     }).catch(e => {
                         this.isError = true;
                         if(e.response.data.message && e.response.data.errors) {
                             const keys = Object.keys(e.response.data.errors);
-                            this.errorMessage = e.response.data.errors[keys[0]][0];
+                            this.titleErrMessage = e.response.data.errors[keys[0]][0];
                         }
                     });
             },
@@ -64,7 +65,7 @@
         },
         computed: {
             disabled: function() {
-                return this.categoryName.length > 4;
+                return this.categoryName.length > 3;
             }
         }
     }
