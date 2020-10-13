@@ -5,6 +5,7 @@ import ExampleComponent from "../components/ExampleComponent";
 import ProductList from "../pages/product/ProductList"
 import CategoryList from "../pages/category/CategoryList";
 import CategoryAdd from "../pages/category/CategoryAdd";
+import CategoryEdit from "../pages/category/CategoryEdit";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
         name: 'CategoryAdd',
         path: '/categories/add',
         component: CategoryAdd
+    },
+    {
+        name: 'CategoryEdit',
+        path: '/categories/edit/:id',
+        component: CategoryEdit
     }
 ];
 
