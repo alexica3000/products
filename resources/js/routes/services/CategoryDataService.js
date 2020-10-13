@@ -6,7 +6,11 @@ class CategoryDataService {
     }
 
     create(data) {
-        return Http.post("/category", data);
+        return Http.post('/category', data);
+    }
+
+    delete(id) {
+        return Http.delete(`/category/${id}`);
     }
 }
 

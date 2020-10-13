@@ -9,7 +9,6 @@
                     </div>
                     <div class="col text-right">
                         <router-link class="btn btn-primary" :to="{name: 'CategoryAdd'}">New category</router-link>
-<!--                        <a class="btn btn-primary" href="#">New category</a>-->
                     </div>
                 </div>
             </div>
@@ -21,17 +20,22 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col" style="width:70%">Category</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr scope="row" v-for="(category, index) in categories">
                             <th>{{ index + 1 }}</th>
-                            <td><ul>
-                                {{ category.title }}
-<!--                                @if($category->parent == 0 )-->
-<!--                                @include('components.allcat', $category)-->
-<!--                                @endif-->
-                            </ul></td>
+                                <td>
+                                    {{ category.title }}
+    <!--                                @if($category->parent == 0 )-->
+    <!--                                @include('components.allcat', $category)-->
+    <!--                                @endif-->
+                                </td>
+                            <td>
+                                <a href="#">Edit</a> |
+                                <a href="#" @click="deleteCategory(category.id)">Delete</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -60,6 +64,15 @@
                         console.log('Something wrong...');
                     }).finally(() => {
                         this.loadingComponent = false;
+                    });
+            },
+            async deleteCategory(id) {
+                await CategoryDataService.delete(id)
+                    .then(r => {
+                        const index = this.categories.findIndex(v => v.id === r.data.id);
+                        if (index > -1) this.$delete(this.categories, index);
+                    }).catch(e => {
+                        console.log('Someting wrong...');
                     });
             }
         },
