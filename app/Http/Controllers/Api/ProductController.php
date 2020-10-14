@@ -33,7 +33,7 @@ class ProductController extends Controller
      */
     public function store(AddProductRequest $request)
     {
-        return new ProductResource(Product::create($request->validated()));
+        return new ProductResource(Product::saveProduct($request->validated()));
     }
 
     /**

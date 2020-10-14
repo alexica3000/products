@@ -18,11 +18,11 @@ class Category extends Model
 //    {
 //        return $this->hasMany('App\Category', 'parent', 'id');
 //    }
-//
-//    public function products()
-//    {
-//        return $this->belongsToMany('App\Product');
-//    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 
 // public function parents()
 // {

@@ -13,9 +13,11 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public static function addProduct(array $productData)
+    public static function saveProduct(array $productData) : Product
     {
-//        $product = self::create($productData);
-//        $product->categories()->sync($request->category);
+        $product = self::create($productData);
+        $product->categories()->sync($productData['categories_id']);
+
+        return $product;
     }
 }
