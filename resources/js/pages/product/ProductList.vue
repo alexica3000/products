@@ -40,7 +40,9 @@
     <!--                            <div><a href="{{ route('cat.product', $category->id) }}">{{ $category->title }}</a></div>-->
     <!--                            @endforeach-->
                             </td>
-                            <td>Edit | Delete</td>
+                            <td>Edit |
+                                <a href="#" @click="deleteProduct($event, product.id)">Delete</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -70,6 +72,17 @@
                         console.log('Something wrong...');
                     }).finally(() => {
                         this.loadingComponent = false;
+                    });
+            },
+            async deleteProduct(e, id) {
+                e.preventDefault();
+
+                await ProductDataService.delete(id)
+                    .then(r => {
+                        const index = this.products.findIndex(v => v.id === r.data.id);
+                        if (index > -1) this.$delete(this.products, index);
+                    }).catch(e => {
+                        console.log(e.response);
                     });
             }
         },
