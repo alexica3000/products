@@ -12,4 +12,10 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public static function addProduct(array $productData)
+    {
+//        $product = self::create($productData);
+//        $product->categories()->sync($request->category);
+    }
 }
