@@ -2,7 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import ExampleComponent from "../components/ExampleComponent";
+
 import ProductList from "../pages/product/ProductList"
+import ProductAdd from "../pages/product/ProductAdd";
+
 import CategoryList from "../pages/category/CategoryList";
 import CategoryAdd from "../pages/category/CategoryAdd";
 import CategoryEdit from "../pages/category/CategoryEdit";
@@ -24,6 +27,11 @@ const routes = [
         name: 'ProductList',
         path: '/products',
         component: ProductList
+    },
+    {
+        name: 'ProductAdd',
+        path: '/products/add',
+        component: ProductAdd
     },
     {
         name: 'CategoryList',

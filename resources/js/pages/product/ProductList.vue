@@ -6,11 +6,10 @@
                         <h3>Products</h3>
                     </div>
 
-    <!--                @if (Auth::check())-->
-    <!--                <div class="col text-right">-->
-    <!--                    <a class="btn btn-primary" href="{{ route('product.create') }}">New product</a>-->
-    <!--                </div>-->
-    <!--                @endif-->
+                    <div class="col text-right">
+                        <router-link class="btn btn-primary" :to="{name: 'ProductAdd'}">New product</router-link>
+<!--                        <a class="btn btn-primary" href="#">New product</a>-->
+                    </div>
                 </div>
             </div>
 
@@ -33,9 +32,7 @@
                     <tbody>
                         <tr scope="row" v-for="(product, index) in products">
                             <th>{{ index + 1 }}</th>
-                            <td>
-    <!--                            <a href="{{ route('product.show', $product->id) }}">{{ $product->title }}</a>-->
-                            </td>
+                            <td>{{ product.title }}</td>
                             <td>{{ product.description }}</td>
                             <td>{{ product.price }}</td>
                             <td>

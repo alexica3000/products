@@ -28,7 +28,7 @@ class AddProductRequest extends FormRequest
             'description'     => 'required|min:3|max:150',
             'price'           => 'required|numeric',
             'categories_id'   => 'required|array',
-            'categoreis_id.*' => 'integer'
+            'categories_id.*' => 'integer'
 		];
 	}
 }
