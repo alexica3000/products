@@ -18,6 +18,6 @@ use Illuminate\Http\Request;
 //});
 
 Route::resources([
-    'category' => 'Api\CategoryController',
-    'product'  => 'Api\ProductController'
+    'categories' => 'Api\CategoryController',
+    'products'  => 'Api\ProductController'
 ]);

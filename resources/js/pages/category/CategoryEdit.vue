@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <h3>Edit Category</h3>
 
-                <form @submit="addCategory">
+                <form>
                     <div class="form-group">
                         <input
                             type="text"
@@ -12,7 +12,7 @@
                             id="category"
                             name="category"
                             placeholder="Enter category"
-                            v-model="categoryName"
+                            v-model="category.title"
                         >
                         <small class="invalid-feedback d-block" >{{ titleErrMessage }}</small>
                         <small id="emailHelp" class="form-text text-muted">Short name of the category</small>
@@ -20,9 +20,9 @@
 
                     <button
                         class="btn btn-primary"
-                        @click="addCategory"
+                        @click="updateCategory"
                         :disabled="!disabled"
-                    >Add</button>
+                    >Edit</button>
 
                     <a class="btn btn-dark" @click="cancel">Cancel</a>
                 </form>
@@ -38,16 +38,29 @@
     export default {
         data() {
             return {
-                categoryName: '',
+                category: {
+                    id: '',
+                    title: '',
+                },
                 titleErrMessage: '',
-                isErr: false
+                isErr: false,
+                disabledButton: false
             }
         },
         methods: {
-            addCategory(e) {
+            async  loadCategoryInfo() {
+                await CategoryDataService.get(this.$route.params.id)
+                    .then(r => {
+                        this.category = r.data.data;
+                    }).catch(e => {
+                        console.log('Something wrong...');
+                    });
+            },
+            updateCategory(e) {
                 e.preventDefault();
+                let data = {title: this.category.title}
 
-                CategoryDataService.create({title: this.categoryName})
+                CategoryDataService.update(this.$route.params.id, data)
                     .then(r => {
                         this.isErr = false;
                         this.$router.push({name: 'CategoryList'});
@@ -64,9 +77,12 @@
             }
         },
         computed: {
-            disabled: function() {
-                return this.categoryName.length > 3;
+            disabled() {
+                return this.category.title.length > 4;
             }
+        },
+        mounted() {
+            this.loadCategoryInfo();
         }
     }
 </script>

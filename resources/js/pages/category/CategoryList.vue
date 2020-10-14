@@ -33,8 +33,7 @@
     <!--                                @endif-->
                                 </td>
                             <td>
-<!--                                <router-link :to="CategoryEdit">Edit</router-link>-->
-                                <a href="#">Edit</a> |
+                                <router-link :to="{name: 'CategoryEdit', params: {id: category.id}}">Edit</router-link> |
                                 <a href="#" @click="deleteCategory(category.id)">Delete</a>
                             </td>
                         </tr>
