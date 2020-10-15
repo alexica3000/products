@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h3>Edit Category</h3>
+                <h3>Edit Category (id: {{ category.id }})</h3>
 
                 <form>
                     <div class="form-group">

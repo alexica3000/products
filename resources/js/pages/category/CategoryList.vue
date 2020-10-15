@@ -18,14 +18,14 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">ID</th>
                             <th scope="col" style="width:70%">Category</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr scope="row" v-for="(category, index) in categories">
-                            <th>{{ index + 1 }}</th>
+                            <th>{{ category.id }}</th>
                                 <td>
                                     {{ category.title }}
     <!--                                @if($category->parent == 0 )-->
@@ -33,7 +33,12 @@
     <!--                                @endif-->
                                 </td>
                             <td>
-                                <router-link :to="{name: 'CategoryEdit', params: {id: category.id}}">Edit</router-link> |
+                                <router-link :to="{name: 'CategoryEdit', params: {id: category.id}}">
+                                    <button
+                                        type="button"
+                                        class="btn btn-warning btn-sm"
+                                    >Edit</button>
+                                </router-link>
                                 <button
                                     type="button"
                                     class="btn btn-danger btn-sm"
