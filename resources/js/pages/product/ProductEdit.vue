@@ -19,11 +19,18 @@
                     <div>
                         <h4>Select categories:</h4>
                         <ul>
-                            <!--                            @foreach ($categories as $category)-->
-                            <!--                            @if($category->parent == 0 )-->
-                            <!--                            @include('components.category', $category)-->
-                            <!--                            @endif-->
-                            <!--                            @endforeach-->
+                            <li v-for="category in categories">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            :value="category.id"
+                                            v-model="selectedCategoriesId"
+                                        >
+                                    {{ category.title }}</label>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <button
@@ -45,6 +52,7 @@
 
 <script>
     import ProductDataService from "../../routes/services/ProductDataService";
+    import CategoryDataService from "../../routes/services/CategoryDataService";
 
     export default {
         data() {
@@ -54,9 +62,11 @@
                     title: '',
                     description: '',
                     price: '',
-                    categories_id: [13, 14]
+                    categories: []
                 },
-                disabledButton: false
+                categories: [],
+                selectedCategoriesId: [],
+                disabledButton: false,
             }
         },
         methods: {
@@ -64,29 +74,47 @@
                 await ProductDataService.get(this.$route.params.id)
                     .then(r => {
                         this.product = r.data.data;
+                        this.getSelectedCategories();
                     }).catch(e => {
                         console.log('Something wrong...');
                     });
             },
-            updateProduct(e) {
-                ProductDataService.update(this.$route.params.id, this.product)
+            async loadCategoriesInfo() {
+                await CategoryDataService.getAll()
+                    .then(r => {
+                        this.categories = r.data.data;
+                    }).catch(e => {
+                        console.log(e.response.data);
+                    });
+            },
+            async updateProduct() {
+                this.product.categories_id = this.selectedCategoriesId;
+
+                await ProductDataService.update(this.$route.params.id, this.product)
                     .then(r => {
                         this.$router.push({name: 'ProductList'});
                     }).catch(e => {
-                        console.log(e.response);
+                        console.log(e.response.data);
                     });
             },
             cancel() {
                 this.$router.push({name: 'ProductList'})
+            },
+            getSelectedCategories() {
+                this.selectedCategoriesId = this.product.categories.map(el => el.id);
             }
         },
         computed: {
             disabled() {
                 return this.product.title.length > 4;
-            }
+            },
+        },
+        components: {
+
         },
         mounted() {
             this.loadProductInfo();
+            this.loadCategoriesInfo();
         }
     }
 </script>

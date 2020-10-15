@@ -56,7 +56,9 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $product->update($request->validated());
+        $product = Product::updateProduct($request->validated(), $product);
+//        $product->update($request->validated());
+//        $product->categories()->sync($request->categories);
 
         return new ProductResource($product);
     }

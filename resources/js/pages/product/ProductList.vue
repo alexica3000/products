@@ -35,9 +35,9 @@
                             <td>{{ product.description }}</td>
                             <td>{{ product.price }}</td>
                             <td>
-    <!--                            @foreach ($product->categories as $category)-->
-    <!--                            <div><a href="{{ route('cat.product', $category->id) }}">{{ $category->title }}</a></div>-->
-    <!--                            @endforeach-->
+                                <div v-for="category in product.categories">
+                                    {{ category.title }} (id: {{ category.id }})
+                                </div>
                             </td>
                             <td>
                                 <router-link :to="{name: 'ProductEdit', params: {id: product.id}}">

@@ -20,4 +20,12 @@ class Product extends Model
 
         return $product;
     }
+
+    public static function updateProduct(array $productData, Product $product) : Product
+    {
+        $product->update($productData);
+        $product->categories()->sync($productData['categories_id']);
+
+        return $product;
+    }
 }
