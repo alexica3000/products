@@ -17,11 +17,12 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        return CategoryResource::collection(Category::getCategoriesList());
+        return CategoryResource::collection(Category::getCategoriesList($request->input('p_id')));
     }
 
     /**

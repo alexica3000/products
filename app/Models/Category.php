@@ -14,19 +14,19 @@ class Category extends Model
         return self::where('p_id', $pId)->get();
     }
 
-//    public function children()
-//    {
-//        return $this->hasMany('App\Category', 'parent', 'id');
-//    }
+    public function children()
+    {
+        return $this->hasMany(self::class, 'p_id', 'id');
+    }
 
     public function products()
     {
         return $this->belongsToMany(Product::class);
     }
 
-// public function parents()
-// {
-//     return $this->belongsTo('App\Category', 'parent', 'id');
-// }
+     public function parents()
+     {
+         return $this->belongsTo(self::class, 'p_id', 'id');
+     }
 
 }

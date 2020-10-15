@@ -12,19 +12,33 @@
                             id="category"
                             name="category"
                             placeholder="Enter category"
-                            v-model="categoryName"
+                            v-model="category.title"
                         >
-                        <small class="invalid-feedback d-block" >{{ titleErrMessage }}</small>
-                        <small id="emailHelp" class="form-text text-muted">Short name of the category</small>
+                        <small class="form-text text-muted">Short name of the category</small>
                     </div>
 
+                    <select class="form-control" @change="selectCategory">
+                        <option value="null">Select parent category</option>
+                        <option
+                            v-for="cat in categories"
+                            :value="cat.id"
+                        >{{ cat.title }}</option>
+                    </select>
+                    <small class="form-text text-muted">Select parent category</small>
+
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="addCategory"
                         :disabled="!disabled"
                     >Add</button>
 
-                    <a class="btn btn-dark" @click="cancel">Cancel</a>
+                    <button
+                        type="button"
+                        class="btn btn-dark"
+                        @click="cancel"
+                    >Cancel</button>
+
                 </form>
             </div>
         </div>
@@ -38,35 +52,44 @@
     export default {
         data() {
             return {
-                categoryName: '',
-                titleErrMessage: '',
-                isErr: false
+                category: {
+                    title: '',
+                    p_id: null
+                },
+                categories: []
             }
         },
         methods: {
-            addCategory(e) {
-                e.preventDefault();
-
-                CategoryDataService.create({title: this.categoryName})
+            async addCategory() {
+                await CategoryDataService.create(this.category)
                     .then(r => {
-                        this.isErr = false;
                         this.$router.push({name: 'CategoryList'});
                     }).catch(e => {
-                        this.isError = true;
-                        if(e.response.data.message && e.response.data.errors) {
-                            const keys = Object.keys(e.response.data.errors);
-                            this.titleErrMessage = e.response.data.errors[keys[0]][0];
-                        }
+                        console.log(e.response.data);
                     });
+            },
+            async loadCategories() {
+                await CategoryDataService.getAll()
+                    .then(r => {
+                        this.categories = r.data.data;
+                    }).catch(e => {
+                        console.log(e.response.data);
+                    })
             },
             cancel() {
                 this.$router.push({name: 'CategoryList'})
+            },
+            selectCategory(e) {
+                this.category.p_id = e.target.value;
             }
         },
         computed: {
             disabled: function() {
-                return this.categoryName.length > 3;
+                return this.category.title.length > 3;
             }
+        },
+        mounted() {
+            this.loadCategories();
         }
     }
 </script>

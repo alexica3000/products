@@ -19,19 +19,16 @@
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col" style="width:70%">Category</th>
+                            <th scope="col" style="width:50%">Category</th>
+                            <th scope="col">Subcategories</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr scope="row" v-for="(category, index) in categories">
                             <th>{{ category.id }}</th>
-                                <td>
-                                    {{ category.title }}
-    <!--                                @if($category->parent == 0 )-->
-    <!--                                @include('components.allcat', $category)-->
-    <!--                                @endif-->
-                                </td>
+                            <td>{{ category.title }}</td>
+                            <td>{{ category.count_subcategories > 0 ? category.count_subcategories : ''}}</td>
                             <td>
                                 <router-link :to="{name: 'CategoryEdit', params: {id: category.id}}">
                                     <button
