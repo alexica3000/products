@@ -19,15 +19,22 @@
                     <div>
                         <h4>Select categories:</h4>
                         <ul>
-<!--                            @foreach ($categories as $category)-->
-<!--                            @if($category->parent == 0 )-->
-<!--                            @include('components.category', $category)-->
-<!--                            @endif-->
-<!--                            @endforeach-->
+                            <li v-for="category in categories">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            :value="category.id"
+                                            v-model="selectedCategoriesId"
+                                        >
+                                        {{ category.title }}</label>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <button
-                        type="submit"
+                        type="button"
                         class="btn btn-primary"
                         @click="addProduct"
                         :disabled="!disabled"
@@ -45,6 +52,7 @@
 
 <script>
     import ProductDataService from "../../routes/services/ProductDataService";
+    import CategoryDataService from "../../routes/services/CategoryDataService";
 
     export default {
         data() {
@@ -54,17 +62,26 @@
                     description: '',
                     price: '',
                     categories_id: []
-                }
+                },
+                categories: [],
+                selectedCategoriesId: []
             }
         },
         methods: {
-            addProduct(e) {
-                e.preventDefault();
-                this.product.categories_id = [13];
+            async addProduct() {
+                this.product.categories_id = this.selectedCategoriesId;
 
-                ProductDataService.create(this.product)
+                await ProductDataService.create(this.product)
                     .then(r => {
                         this.$router.push({name: 'ProductList'});
+                    }).catch(e => {
+                        console.log(e.response.data);
+                    });
+            },
+            async loadCategoriesInfo() {
+                await CategoryDataService.getAll()
+                    .then(r => {
+                        this.categories = r.data.data;
                     }).catch(e => {
                         console.log(e.response.data);
                     });
@@ -79,6 +96,9 @@
                     this.product.description.length > 3 &&
                     this.product.price > 0;
             }
+        },
+        mounted() {
+            this.loadCategoriesInfo();
         }
     }
 </script>

@@ -28,7 +28,14 @@ class AddProductRequest extends FormRequest
             'description'     => 'required|min:3|max:150',
             'price'           => 'required|numeric',
             'categories_id'   => 'required|array',
-            'categories_id.*' => 'integer'
+            'categories_id.*' => 'integer|exists:categories,id'
 		];
 	}
+
+	public function messages()
+    {
+        return [
+            'categories_id.*' => 'The selected categories is invalid.'
+        ];
+    }
 }
