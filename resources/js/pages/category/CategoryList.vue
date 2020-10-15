@@ -34,7 +34,11 @@
                                 </td>
                             <td>
                                 <router-link :to="{name: 'CategoryEdit', params: {id: category.id}}">Edit</router-link> |
-                                <a href="#" @click="deleteCategory($event, category.id)">Delete</a>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger btn-sm"
+                                    @click="deleteCategory($event, category.id)"
+                                >Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -67,8 +71,6 @@
                     });
             },
             async deleteCategory(e, id) {
-                e.preventDefault();
-
                 await CategoryDataService.delete(id)
                     .then(r => {
                         const index = this.categories.findIndex(v => v.id === r.data.id);

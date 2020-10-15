@@ -41,7 +41,11 @@
     <!--                            @endforeach-->
                             </td>
                             <td>Edit |
-                                <a href="#" @click="deleteProduct($event, product.id)">Delete</a>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger btn-sm"
+                                    @click="deleteProduct($event, product.id)"
+                                >Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -75,8 +79,6 @@
                     });
             },
             async deleteProduct(e, id) {
-                e.preventDefault();
-
                 await ProductDataService.delete(id)
                     .then(r => {
                         const index = this.products.findIndex(v => v.id === r.data.id);
