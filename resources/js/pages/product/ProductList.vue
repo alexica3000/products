@@ -8,7 +8,6 @@
 
                     <div class="col text-right">
                         <router-link class="btn btn-primary" :to="{name: 'ProductAdd'}">New product</router-link>
-<!--                        <a class="btn btn-primary" href="#">New product</a>-->
                     </div>
                 </div>
             </div>
@@ -21,7 +20,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Product</th>
                         <th scope="col">Description</th>
                         <th scope="col">Price</th>
@@ -31,7 +30,7 @@
                     </thead>
                     <tbody>
                         <tr scope="row" v-for="(product, index) in products">
-                            <th>{{ index + 1 }}</th>
+                            <th>{{ product.id }}</th>
                             <td>{{ product.title }}</td>
                             <td>{{ product.description }}</td>
                             <td>{{ product.price }}</td>
@@ -40,7 +39,15 @@
     <!--                            <div><a href="{{ route('cat.product', $category->id) }}">{{ $category->title }}</a></div>-->
     <!--                            @endforeach-->
                             </td>
-                            <td>Edit |
+                            <td>
+                                <router-link :to="{name: 'ProductEdit', params: {id: product.id}}">
+                                    <button
+                                        type="button"
+                                        class="btn btn-warning btn-sm"
+                                        @click=""
+                                    >Edit</button>
+                                </router-link>
+
                                 <button
                                     type="button"
                                     class="btn btn-danger btn-sm"

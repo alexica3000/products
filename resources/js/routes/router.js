@@ -5,6 +5,7 @@ import ExampleComponent from "../components/ExampleComponent";
 
 import ProductList from "../pages/product/ProductList"
 import ProductAdd from "../pages/product/ProductAdd";
+import ProductEdit from "../pages/product/ProductEdit";
 
 import CategoryList from "../pages/category/CategoryList";
 import CategoryAdd from "../pages/category/CategoryAdd";
@@ -32,6 +33,11 @@ const routes = [
         name: 'ProductAdd',
         path: '/products/add',
         component: ProductAdd
+    },
+    {
+        name: 'ProductEdit',
+        path: '/products/edit/:id',
+        component: ProductEdit
     },
     {
         name: 'CategoryList',

@@ -22,7 +22,7 @@
                         class="btn btn-primary"
                         @click="updateCategory"
                         :disabled="!disabled"
-                    >Edit</button>
+                    >Update</button>
 
                     <a class="btn btn-dark" @click="cancel">Cancel</a>
                 </form>

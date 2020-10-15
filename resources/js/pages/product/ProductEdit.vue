@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h3>New Product</h3>
+                <h3>Edit Product (id: {{ product.id }})</h3>
 
                 <form>
                     <div class="form-group">
@@ -19,19 +19,19 @@
                     <div>
                         <h4>Select categories:</h4>
                         <ul>
-<!--                            @foreach ($categories as $category)-->
-<!--                            @if($category->parent == 0 )-->
-<!--                            @include('components.category', $category)-->
-<!--                            @endif-->
-<!--                            @endforeach-->
+                            <!--                            @foreach ($categories as $category)-->
+                            <!--                            @if($category->parent == 0 )-->
+                            <!--                            @include('components.category', $category)-->
+                            <!--                            @endif-->
+                            <!--                            @endforeach-->
                         </ul>
                     </div>
                     <button
-                        type="submit"
+                        type="button"
                         class="btn btn-primary"
-                        @click="addProduct"
+                        @click="updateProduct"
                         :disabled="!disabled"
-                    >Add</button>
+                    >Update</button>
                     <button
                         type="button"
                         class="btn btn-dark"
@@ -50,23 +50,30 @@
         data() {
             return {
                 product: {
+                    id: '',
                     title: '',
                     description: '',
                     price: '',
-                    categories_id: []
-                }
+                    categories_id: [13, 14]
+                },
+                disabledButton: false
             }
         },
         methods: {
-            addProduct(e) {
-                e.preventDefault();
-                this.product.categories_id = [13];
-
-                ProductDataService.create(this.product)
+            async loadProductInfo() {
+                await ProductDataService.get(this.$route.params.id)
+                    .then(r => {
+                        this.product = r.data.data;
+                    }).catch(e => {
+                        console.log('Something wrong...');
+                    });
+            },
+            updateProduct(e) {
+                ProductDataService.update(this.$route.params.id, this.product)
                     .then(r => {
                         this.$router.push({name: 'ProductList'});
                     }).catch(e => {
-                        console.log(e.response.data);
+                        console.log(e.response);
                     });
             },
             cancel() {
@@ -74,11 +81,12 @@
             }
         },
         computed: {
-            disabled: function() {
-                return this.product.title.length > 3 &&
-                    this.product.description.length > 3 &&
-                    this.product.price > 0;
+            disabled() {
+                return this.product.title.length > 4;
             }
+        },
+        mounted() {
+            this.loadProductInfo();
         }
     }
 </script>
