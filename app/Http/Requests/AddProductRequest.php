@@ -35,7 +35,8 @@ class AddProductRequest extends FormRequest
 	public function messages()
     {
         return [
-            'categories_id.*' => 'The selected categories is invalid.'
+            'categories_id.*.integer' => 'The selected categories is invalid.',
+            'categories_id.*.exists'  => 'The selected categories does not exists.'
         ];
     }
 }
