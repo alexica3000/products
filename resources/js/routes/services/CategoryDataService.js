@@ -1,8 +1,8 @@
 import Http from '../http-common'
 
 class CategoryDataService {
-    getAll() {
-        return Http.get('/categories');
+    getAll(category_id = null) {
+        return Http.get('/categories', {params: {p_id: category_id}});
     }
 
     create(data) {

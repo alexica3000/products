@@ -78,7 +78,7 @@
         },
         computed: {
             disabled() {
-                return this.category.title.length > 4;
+                return this.category.title.length > 2;
             }
         },
         mounted() {

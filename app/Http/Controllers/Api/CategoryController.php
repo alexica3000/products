@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\AddCategoryRequest;
+use App\Http\Requests\CategoryIndexRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
@@ -17,10 +18,10 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param CategoryIndexRequest $request
      * @return AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(CategoryIndexRequest $request)
     {
         return CategoryResource::collection(Category::getCategoriesList($request->input('p_id')));
     }

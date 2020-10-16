@@ -5,7 +5,8 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col">
-                        <h1>Categories</h1>
+                        <h2>Categories</h2>
+                        <h5><span v-if="currentCategory.title">{{ currentCategory.title }}</span></h5>
                     </div>
                     <div class="col text-right">
                         <router-link class="btn btn-primary" :to="{name: 'CategoryAdd'}">New category</router-link>
@@ -28,7 +29,13 @@
                         <tr scope="row" v-for="(category, index) in categories">
                             <th>{{ category.id }}</th>
                             <td>{{ category.title }}</td>
-                            <td>{{ category.count_subcategories > 0 ? category.count_subcategories : ''}}</td>
+                            <td>
+                                <div v-if="checkIsSubcategories(category.count_subcategories)">
+                                    <router-link
+                                        :to="{name: 'CategoryList', params: {category_id: category.id}}"
+                                    >{{ category.count_subcategories }}</router-link>
+                                </div>
+                            </td>
                             <td>
                                 <router-link :to="{name: 'CategoryEdit', params: {id: category.id}}">
                                     <button
@@ -58,12 +65,16 @@
         data() {
             return {
                 loadingComponent: false,
-                categories: []
+                category_id: null,
+                categories: [],
+                currentCategory: {
+                    title: ''
+                }
             }
         },
         methods: {
             async retrieveCategories() {
-                await CategoryDataService.getAll()
+                await CategoryDataService.getAll(this.$route.params.category_id)
                     .then(r => {
                         this.categories = r.data.data;
                     }).catch(e => {
@@ -80,11 +91,32 @@
                     }).catch(e => {
                         console.log('Someting wrong...');
                     });
+            },
+            async getCurrentCategory() {
+                this.currentCategory.title = '';
+                if(!this.$route.params.category_id) return;
+
+                await CategoryDataService.get(this.$route.params.category_id)
+                    .then(r => {
+                        this.currentCategory = r.data.data;
+                    }).catch(e => {
+                        console.log(e.response.data);
+                    });
+            },
+            checkIsSubcategories(count_subcategories) {
+                return count_subcategories > 0;
             }
         },
         mounted(){
             this.retrieveCategories();
+            this.getCurrentCategory();
         },
+        watch: {
+            "$route"() {
+                this.retrieveCategories();
+                this.getCurrentCategory();
+            }
+        }
     }
 </script>
 

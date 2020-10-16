@@ -18,11 +18,11 @@
                     </div>
 
                     <select class="form-control" @change="selectCategory">
-                        <option value="null">Select parent category</option>
+                        <option value="">Select parent category</option>
                         <option
                             v-for="cat in categories"
                             :value="cat.id"
-                        >{{ cat.title }}</option>
+                        >{{ cat.title }} - id: {{ cat.id }}</option>
                     </select>
                     <small class="form-text text-muted">Select parent category</small>
 
@@ -36,7 +36,7 @@
                     <button
                         type="button"
                         class="btn btn-dark"
-                        @click="cancel"
+                        @click="goToCategoriesPage"
                     >Cancel</button>
 
                 </form>
@@ -63,7 +63,7 @@
             async addCategory() {
                 await CategoryDataService.create(this.category)
                     .then(r => {
-                        this.$router.push({name: 'CategoryList'});
+                        this.goToCategoriesPage();
                     }).catch(e => {
                         console.log(e.response.data);
                     });
@@ -76,8 +76,10 @@
                         console.log(e.response.data);
                     })
             },
-            cancel() {
-                this.$router.push({name: 'CategoryList'})
+            goToCategoriesPage() {
+                !this.fromRoute || !this.fromRoute.name || !this.fromRoute.params
+                    ? this.$router.push({name: 'CategoryList'})
+                    : this.$router.push({name: this.fromRoute.name, params: this.fromRoute.params});
             },
             selectCategory(e) {
                 this.category.p_id = e.target.value;
@@ -85,11 +87,16 @@
         },
         computed: {
             disabled: function() {
-                return this.category.title.length > 3;
+                return this.category.title.length > 2;
             }
         },
         mounted() {
             this.loadCategories();
+        },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                vm.fromRoute = from;
+            })
         }
     }
 </script>

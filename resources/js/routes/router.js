@@ -41,7 +41,7 @@ const routes = [
     },
     {
         name: 'CategoryList',
-        path: '/categories',
+        path: '/categories/:category_id?',
         component: CategoryList,
     },
     {
