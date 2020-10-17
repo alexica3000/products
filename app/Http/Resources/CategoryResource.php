@@ -19,7 +19,8 @@ class CategoryResource extends JsonResource
             'id'                  => $this->id,
             'p_id'                => $this->p_id,
             'title'               => $this->title,
-            'count_subcategories' => $this->children->count()
+            'count_subcategories' => $this->children->count(),
+            'count_products'      => $this->products->count()
         ];
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\AddProductRequest;
+use App\Http\Requests\ProductIndexRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -18,11 +20,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param ProductIndexRequest $request
      * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(ProductIndexRequest $request)
     {
-        return ProductResource::collection(Product::all());
+        $products = $request->input('category_id')
+            ? $this->getProductsByCategoryId($request->input('category_id'))
+            : Product::all();
+
+        return ProductResource::collection($products);
     }
 
     /**
@@ -73,5 +80,9 @@ class ProductController extends Controller
         return $product->delete()
             ? response()->json(['id' => $product->id], 200)
             : response()->json(['message' => 'Something wrong.'], 422);
+    }
+
+    private function getProductsByCategoryId(int $categoryId) {
+        return Category::where('id', $categoryId)->first()->products()->get();
     }
 }
