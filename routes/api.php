@@ -17,7 +17,11 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::resources([
-    'categories' => 'Api\CategoryController',
-    'products'  => 'Api\ProductController'
-]);
+Route::middleware(['jwt'])->group(function(){
+
+    Route::resources([
+        'categories' => 'Api\CategoryController',
+        'products'   => 'Api\ProductController'
+    ]);
+
+});
