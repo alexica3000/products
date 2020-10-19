@@ -16,6 +16,16 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class CategoryController extends Controller
 {
     /**
+     * Create a new category controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('jwt')->except('index', 'show');
+    }
+    
+    /**
      * Display a listing of the resource.
      *
      * @param CategoryIndexRequest $request

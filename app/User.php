@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -36,4 +37,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function addUser(array $data, string $password) : User
+    {
+        return self::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($password)
+        ])->setAttribute('newPassword', $password);
+    }
+
+    public static function getUser(array $data)
+    {
+        $admin = self::where('email', $data['email'])->first();
+
+        if (!empty($admin) && Hash::check($data['password'], $admin->password))
+            return $admin->setAttribute('user_type', 'admin');
+
+        return null;
+    }
 }

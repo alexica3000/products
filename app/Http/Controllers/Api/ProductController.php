@@ -18,6 +18,16 @@ use Illuminate\Http\Response;
 class ProductController extends Controller
 {
     /**
+     * Create a new product controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('jwt')->except('index', 'show');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param ProductIndexRequest $request

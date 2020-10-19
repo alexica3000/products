@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 
 /*
@@ -17,11 +18,13 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::middleware(['jwt'])->group(function(){
-
-    Route::resources([
-        'categories' => 'Api\CategoryController',
-        'products'   => 'Api\ProductController'
-    ]);
-
+Route::prefix('auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/refresh', [AuthController::class, 'refresh']);
 });
+
+Route::resources([
+    'categories' => 'Api\CategoryController',
+    'products'   => 'Api\ProductController'
+]);
