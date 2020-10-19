@@ -18,3 +18,12 @@ How to install:
 
 ## middlewares
 * **jwt** - ensures that JWT token is present and valid
+
+## actions:
+ * getting a list of all categories
+ * getting a list of all products
+ * gtting a list of products in a specific category
+ * gtting a list of subcategories in a specific category
+ * user authorization
+ * add / edit / delete category (for authorized users)
+ * add / edit / delete product (for authorized users)

@@ -30,8 +30,6 @@ class AuthController extends Controller
 
         $token = JWTAuth::encode($payload);
 
-//        Cookie::queue($this->refreshJwtCookieName, $token, config('jwt.refresh_ttl'));
-
         return response()->json(['token' => (string)$token], 200);
     }
 
@@ -41,8 +39,6 @@ class AuthController extends Controller
     public function logout()
     {
         try {
-//            Cookie::queue(Cookie::forget($this->refreshJwtCookieName));
-
             $token = request()->bearerToken();
 
             JWTAuth::setToken($token)->invalidate(true);
@@ -59,13 +55,10 @@ class AuthController extends Controller
     public function refresh()
     {
         try {
-//            $token = Cookie::get($this->refreshJwtCookieName);
             $token = request()->bearerToken();
 
             if ($token) {
                 $newToken = JWTAuth::setToken($token)->refresh(false, false);
-
-//                Cookie::queue($this->refreshJwtCookieName, $newToken, config('jwt.refresh_ttl'));
 
                 return response()->json(['token' => (string)$newToken]);
             } else {
