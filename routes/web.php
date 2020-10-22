@@ -11,13 +11,4 @@
 |
 */
 
-//Route::get('/', 'HomeController@index');
-//Route::get('/{any}', 'HomeController@index')->where('any', '.*');
-
 //Auth::routes();
-//
-//Route::get('/cat/{category}/', 'ProductController@productCat')->name('cat.product');
-//
-//Route::get('/export/prod', 'ProductController@exportProducts');
-//
-//Route::get('/home', 'ProductController@index')->name('home');
